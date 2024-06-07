@@ -310,6 +310,38 @@ return [
             'url' => 'admin/users',
             'icon' => 'fas fa-users',
         ],
+        [
+            'text' => 'Tabelas Auxiliares',
+            'icon' => 'fa fa-chevron-down',
+            'submenu' => [
+                [
+                    'text' => 'Tipos de Serviço',
+                    'url'  => 'admin/tiposervicos',
+                    'icon' => 'fa fa-redo-alt',
+                ],
+                [
+                    'text' => 'Grupos',
+                    'url'  => 'admin/grupos',
+                    'icon' => 'fas fa-stream',
+                ],
+                [
+                    'text' => 'Sub-Grupos',
+                    'url'  => 'admin/subgrupos',
+                    'icon' => 'fas fa-share-square',
+                ],
+                [
+                    'text' => 'Unidades',
+                    'url'  => 'admin/unidades',
+                    'icon' => 'fas fa-share-square',
+                ],
+                [
+                    'text' => 'Funcionários',
+                    'url'  => 'admin/funcionarios',
+                    'icon' => 'fa fa-user-circle',
+                ],
+            ],
+        ],
+
     ],
 
     /*
