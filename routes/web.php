@@ -3,8 +3,19 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\{
-    ProfileController, PermissionController, PermissionProfileController, UserController, TipoServicoController, GrupoController, SubgrupoController, UnidadeController, SubgrupoGrupoController, FuncionarioController, ServicoController
+    ProfileController, PermissionController, PermissionProfileController, UserController, TipoServicoController, GrupoController, SubgrupoController, UnidadeController, SubgrupoGrupoController, FuncionarioController, ServicoController, AcompanhamentoServicoController
 };
+
+/**
+ * Router Aconphamento servicos
+ */
+Route::delete('/servicos/{id}/acompanhamentos/{idAcompanhamento}/delete', [AcompanhamentoServicoController::class, 'delete'])->name('acompanhamentos.servico.delete')->middleware('auth');
+Route::get('/servicos/{id}/acompanhamentos/{idAcompanhamento}/show', [AcompanhamentoServicoController::class, 'show'])->name('acompanhamentos.servico.show')->middleware('auth');
+Route::put('/servicos/{id}/acompanhamentos/{idAcompanhamento}/update', [AcompanhamentoServicoController::class, 'update'])->name('acompanhamentos.servico.update')->middleware('auth');
+Route::get('/servicos/{id}/acompanhamentos/{idAcompanhamento}/edit', [AcompanhamentoServicoController::class, 'edit'])->name('acompanhamentos.servico.edit')->middleware('auth');
+Route::post('/servicos/{id}/acompanhamentos/store', [AcompanhamentoServicoController::class, 'store'])->name('acompanhamentos.servico.store')->middleware('auth');
+Route::get('/servicos/{id}/acompanhamentos/create', [AcompanhamentoServicoController::class, 'create'])->name('acompanhamentos.servico.create')->middleware('auth');
+Route::get('servicos/{id}/acompanhamentos', [AcompanhamentoServicoController::class, 'index'])->name('acompanhamentos.servico.index')->middleware('auth');
 
 /**
  * Router Servicos

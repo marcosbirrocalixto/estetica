@@ -47,9 +47,10 @@
                         <td>
                             {{ $servico->tempoPrevisto }}
                         </td>
-                        <td style="width: 10px">
+                        <td style="width: 5px">
                             <a href="{{route('servicos.edit', $servico->id)}}" class="btn btn-info">Edit</a>
                             <a href="{{route('servicos.show', $servico->id)}}" class="btn btn-warning">Ver</a>
+                            <a href="{{route('acompanhamentos.servico.index', $servico->id)}}" class="btn btn-primary"><i class="fa fa-cogs"></i> Acomp.</a>
                         </td>
                     </tr>
                     @endforeach

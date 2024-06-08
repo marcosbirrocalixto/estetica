@@ -11,6 +11,11 @@ class Servico extends Model
 
     protected $fillable = ['name', 'description', 'price', 'tempoPrevisto'];
 
+    public function acompanhamentos()
+    {
+        return $this->hasMany(AcompanhamentoServico::class);
+    }
+
     public function search($filter = null)
     {
         $results = $this->where('name', 'LIKE', "%{$filter}%")
@@ -20,9 +25,6 @@ class Servico extends Model
         return $results;
     }
 
-    public function acompanhamentos()
-    {
-        return $this->hasMany('AcompanhamentoServico::class');
-    }
+
 
 }
