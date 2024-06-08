@@ -1,14 +1,14 @@
 @extends('adminlte::page')
 
-@section('title', 'Tipo Serviços')
+@section('title', 'Serviços')
 
 @section('content_header')
     <ol class="breadcrumb">
         {{--<li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>--}}
-        <li class="breadcrumb-item active"><a href="{{ route('servicos.index') }}" class="">Permissões</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('servicos.index') }}" class="">Serviços</a></li>
     </ol>
 
-    <h1>Tipo Serviços <a href="{{ route('servicos.create')}}" class="btn btn-primary"><i class="fas fa-plus-square"></i> Adicionar Tipo Serviço</a></h1>
+    <h1>Serviços <a href="{{ route('servicos.create')}}" class="btn btn-primary"><i class="fas fa-plus-square"></i> Adicionar Serviço</a></h1>
 
 @stop
 
@@ -27,6 +27,8 @@
                     <tr>
                         <th>Nome</th>
                         <th>Descrição</th>
+                        <th>Preço</th>
+                        <th>Tempo Previsto</th>
                         <th style="width: 250px">Ações</th>
                     </tr>
                 </thead>
@@ -38,6 +40,12 @@
                         </td>
                         <td>
                             {{ $servico->description }}
+                        </td>
+                        <td>
+                        R$ {{ number_format($servico->price, 2, ',', '.') }}
+                        </td>
+                        <td>
+                            {{ $servico->tempoPrevisto }}
                         </td>
                         <td style="width: 10px">
                             <a href="{{route('servicos.edit', $servico->id)}}" class="btn btn-info">Edit</a>

@@ -341,6 +341,11 @@ return [
                 ],
             ],
         ],
+        [
+            'text' => 'Serviços',
+            'url' => 'admin/servicos',
+            'icon' => 'fa fa-cogs',
+        ],
 
     ],
 

@@ -25,7 +25,10 @@ class StoreUpdateServicoRequest extends FormRequest
 
         return [
             'name' => "required|min:3|max:255|unique:servicos,name,{$id},id",
-            'description' => "nullable|min:3|max:255|",
+            'description' => "min:3|max:255|",
+            'price' => "required|regex:/^\d+(\.\d{1,2})?$/",
+            'tempoPrevisto' => "nullable|min:3|max:255|",
         ];
     }
 }
+

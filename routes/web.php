@@ -3,8 +3,14 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\{
-    ProfileController, PermissionController, PermissionProfileController, UserController, TipoServicoController, GrupoController, SubgrupoController, UnidadeController, SubgrupoGrupoController, FuncionarioController
+    ProfileController, PermissionController, PermissionProfileController, UserController, TipoServicoController, GrupoController, SubgrupoController, UnidadeController, SubgrupoGrupoController, FuncionarioController, ServicoController
 };
+
+/**
+ * Router Servicos
+ */
+Route::any('admin/servicos/search', [ServicoController::class, 'search'])->name('servicos.search')->middleware('auth');
+Route::resource('admin/servicos', ServicoController::class)->middleware('auth');
 
 /**
  * Router Funcionario
