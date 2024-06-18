@@ -17,4 +17,9 @@ class AcompanhamentoServico extends Model
     {
         return $this->belongsto(Servico::class);
     }
+
+    public function detalhes()
+    {
+        return $this->hasMany(DetalheAcompanhamento::class);
+    }
 }

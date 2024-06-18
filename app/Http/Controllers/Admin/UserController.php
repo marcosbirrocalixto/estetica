@@ -6,22 +6,27 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateUserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Tipousuario;
 
 class UserController extends Controller
 {
-    protected $repository;
+    protected $repository, $tipousuario;
 
-    public function  __construct(User $user)
+    public function  __construct(User $user, Tipousuario $tipousuario)
     {
         $this->repository = $user;
+        $this->tipousuario = $tipousuario;
     }
 
     public function index()
     {
-        $users = $this->repository->paginate();
+        $tipousuarios = $this->tipousuario->get();
+
+        $users = $this->repository->with('tipousuario')->paginate();
 
         return view('admin.pages.users.index', [
             'users' => $users,
+            'tipousuarios' => $tipousuarios,
         ]);
     }
 
@@ -32,7 +37,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.users.create');
+        $tipousuarios = $this->tipousuario->get();
+
+        return view('admin.pages.users.create', [
+            'tipousuarios' => $tipousuarios,
+        ]);
     }
 
     /**
@@ -77,6 +86,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $tipousuarios = $this->tipousuario->get();
+
         $user = $this->repository->where('id', $id)->first();
 
         if (!$user)
@@ -84,6 +95,7 @@ class UserController extends Controller
 
         return view('admin.pages.users.edit', [
             'user' => $user,
+            'tipousuarios' => $tipousuarios,
         ]);
     }
 
@@ -101,13 +113,13 @@ class UserController extends Controller
         if (!$user)
             return redirect()->back();
 
-        $data = $request->only(['name', 'email']); //Verificar se vai poder trocar de empresa e tipo de usuário
-
-        //dd($data);
+        $data = $request->only(['tipousuario_id', 'name', 'email']); //Verificar se vai poder trocar de empresa e tipo de usuário
 
         if ($request->password) {
             $data['password'] = bcrypt($request->password);
         }
+
+        //dd($data);
 
         $this->repository->update($data);
 

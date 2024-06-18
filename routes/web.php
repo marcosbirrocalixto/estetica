@@ -3,8 +3,45 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\{
-    ProfileController, PermissionController, PermissionProfileController, UserController, TipoServicoController, GrupoController, SubgrupoController, UnidadeController, SubgrupoGrupoController, FuncionarioController, ServicoController, AcompanhamentoServicoController
+    ProfileController, PermissionController, PermissionProfileController, UserController, TipoServicoController, GrupoController, SubgrupoController, UnidadeController, SubgrupoGrupoController, FuncionarioController, ServicoController, AcompanhamentoServicoController, TipoUsuarioController, DetalheAcompanhamentoController, UfController, ClienteController, TipoPessoaController
 };
+
+/**
+ * Router Tipo Pessoa
+ */
+Route::any('admin/tipopessoas/search', [TipoPessoaController::class, 'search'])->name('tipopessoas.search')->middleware('auth');
+Route::resource('admin/tipopessoas', TipoPessoaController::class)->middleware('auth');
+
+/**
+ * Router Cliennes
+ */
+Route::any('admin/clientes/search', [ClienteController::class, 'search'])->name('clientes.search')->middleware('auth');
+Route::resource('admin/clientes', ClienteController::class)->middleware('auth');
+
+
+/**
+ * Router UF
+ */
+Route::any('admin/ufs/search', [UfController::class, 'search'])->name('ufs.search')->middleware('auth');
+Route::resource('admin/ufs', UfController::class)->middleware('auth');
+
+/**
+ * Router Detalhes Acompanhamento
+ */
+Route::delete('/acompanhamentos/{id}/detalhes/{idDetalhe}/delete', [DetalheAcompanhamentoController::class, 'delete'])->name('detalhes.acompanhamento.delete')->middleware('auth');
+Route::get('/acompanhamentos/{id}/detalhes/{idDetalhe}/show', [DetalheAcompanhamentoController::class, 'show'])->name('detalhes.acompanhamento.show')->middleware('auth');
+Route::put('/acompanhamentos/{id}/detalhes/{idDetalhe}/update', [DetalheAcompanhamentoController::class, 'update'])->name('detalhes.acompanhamento.update')->middleware('auth');
+Route::get('/acompanhamentos/{id}/detalhes/{idDetalhe}/edit', [DetalheAcompanhamentoController::class, 'edit'])->name('detalhes.acompanhamento.edit')->middleware('auth');
+Route::post('/acompanhamentos/{id}/detalhes/store', [DetalheAcompanhamentoController::class, 'store'])->name('detalhes.acompanhamento.store')->middleware('auth');
+Route::get('/acompanhamentos/{id}/detalhes/create', [DetalheAcompanhamentoController::class, 'create'])->name('detalhes.acompanhamento.create')->middleware('auth');
+Route::get('acompanhamentos/{id}/detalhes', [DetalheAcompanhamentoController::class, 'index'])->name('detalhes.acompanhamento.index')->middleware('auth');
+
+
+/**
+ * Router Tipo Usuário
+ */
+Route::any('admin/tipousuarios/search', [TipoUsuarioController::class, 'search'])->name('tipousuarios.search')->middleware('auth');
+Route::resource('admin/tipousuarios', TipoUsuarioController::class)->middleware('auth');
 
 /**
  * Router Aconphamento servicos

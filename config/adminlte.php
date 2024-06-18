@@ -311,9 +311,29 @@ return [
             'icon' => 'fas fa-users',
         ],
         [
+            'text' => 'Clentes',
+            'url' => 'admin/clientes',
+            'icon' => 'fas fa-users',
+        ],
+        [
             'text' => 'Tabelas Auxiliares',
             'icon' => 'fa fa-chevron-down',
             'submenu' => [
+                [
+                    'text' => 'Tipo usuário',
+                    'url'  => 'admin/tipousuarios',
+                    'icon' => 'fa fa-user-circle',
+                ],
+                [
+                    'text' => 'Tipo Pessoa CNPJ/CPF',
+                    'url'  => 'admin/tipopessoas',
+                    'icon' => 'fa fa-user-circle',
+                ],
+                [
+                    'text' => 'UFs',
+                    'url'  => 'admin/ufs',
+                    'icon' => 'fa fa-user-circle',
+                ],
                 [
                     'text' => 'Tipos de Serviço',
                     'url'  => 'admin/tiposervicos',

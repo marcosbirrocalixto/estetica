@@ -24,6 +24,7 @@ class StoreUpdateUserRequest extends FormRequest
         $id = $this->segment(3);
 
         $rules = [
+            'tipousuario_id' => 'required',
             'name' => 'required|string|min:5|max:255',
             'email' => "required|min:3|max:255|unique:users,email,{$id},id",
             'password' => 'required|min:6|max:20|confirmed',

@@ -11,27 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('acompanhamentos_servico', function (Blueprint $table) {
+        Schema::create('detalhes_acompanhamento', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('servico_id');
+            $table->unsignedBigInteger('acompanhamento_servico_id');
             $table->string('name')->unique();
             $table->string('description');
             $table->timestamps();
 
-            $table->foreign('servico_id')
-            ->references('id')
-            ->on('servicos')
-            ->onDelete('cascade');
+            $table->foreign('acompanhamento_servico_id')
+                        ->references('id')
+                        ->on('acompanhamentos_servico')
+                        ->onDelete('cascade');
         });
     }
-
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('acompanhamentos_servico');
+        Schema::dropIfExists('detalhe_acompanhamentos');
     }
 };
