@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', "Detalhe do Tipo Usuário {{ $tipousuario->name }}")
+@section('title', "Detalhe do Cliente {{ $cliente->name }}")
 
 @section('content_header')
-    <h1>Detalhes do Tipo Usuário <b>{{ $tipousuario->name }}</b></h1>
+    <h1>Detalhes do Cliente <b>{{ $cliente->name }}</b></h1>
 @stop
 
 @section('content')
@@ -12,19 +12,19 @@
         <div class="card-body">
             <ul>
                 <li>
-                    <strong>Nome: </strong> {{ $tipousuario->name }}
+                    <strong>Nome: </strong> {{ $cliente->name }}
                 </li>
                 <li>
-                    <strong>Descrição: </strong> {{ $tipousuario->description }}
+                    <strong>E-mail: </strong> {{ $cliente->email }}
                 </li>
             </ul>
 
             @include('admin.includes.alerts')
 
-        <form action="{{ route('tipousuarios.destroy', $tipousuario->id) }}" method="POST">
+        <form action="{{ route('clientes.destroy', $cliente->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Deletar o Tipo Usuário: {{ $tipousuario->name }}</button>
+            <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Deletar o Cliente: {{ $cliente->name }}</button>
         </form>
     </div>
 @stop

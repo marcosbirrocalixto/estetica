@@ -7,27 +7,36 @@ use App\Http\Requests\StoreUpdateClienteRequest;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Models\Tipopessoa;
+use App\Models\Tipologradouro;
+use App\Models\Uf;
+
 
 class ClienteController extends Controller
 {
-    protected $repository, $tipopessoa;
+    protected $repository, $tipopessoa, $tipologradouro, $uf;
 
-    public function  __construct(Cliente $cliente, Tipopessoa $tipopessoa)
+    public function  __construct(Cliente $cliente, Tipopessoa $tipopessoa, Tipologradouro $tipologradouro, Uf $uf)
     {
         $this->repository = $cliente;
         $this->tipopessoa = $tipopessoa;
+        $this->tipologradouro = $tipologradouro;
+        $this->uf = $uf;
     }
 
     public function index()
     {
         $clientes = $this->repository->paginate();
 
-        $tipopessoas = $this->tipopessoa->get();
+        $tipopessoas = $this->tipopessoa->orderby('name')->get();
+        $tipologradouros = $this->tipologradouro->orderby('name')->get();
+        $ufs = $this->uf->orderby('sigla')->get();
 
         return view('admin.pages.clientes.index',
         [
             'clientes' => $clientes,
             'tipopessoas' => $tipopessoas,
+            'tipologradouros' => $tipologradouros,
+            'ufs' => $ufs,
         ]);
     }
 
@@ -39,9 +48,13 @@ class ClienteController extends Controller
     public function create()
     {
         $tipopessoas = $this->tipopessoa->get();
+        $tipologradouros = $this->tipologradouro->orderby('name')->get();
+        $ufs = $this->uf->orderby('sigla')->get();
 
         return view('admin.pages.clientes.create',         [
             'tipopessoas' => $tipopessoas,
+            'tipologradouros' => $tipologradouros,
+            'ufs' => $ufs,
         ]);
     }
 
@@ -92,11 +105,18 @@ class ClienteController extends Controller
     {
         $cliente = $this->repository->where('id', $id)->first();
 
+        $tipopessoas = $this->tipopessoa->get();
+        $tipologradouros = $this->tipologradouro->orderby('name')->get();
+        $ufs = $this->uf->orderby('sigla')->get();
+
         if (!$cliente)
             return redirect()->back();
 
         return view('admin.pages.clientes.edit', [
             'cliente' => $cliente,
+            'tipopessoas' => $tipopessoas,
+            'tipologradouros' => $tipologradouros,
+            'ufs' => $ufs,
         ]);
     }
 

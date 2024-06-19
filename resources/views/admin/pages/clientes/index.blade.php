@@ -26,8 +26,9 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>Descrição</th>
-                        <th style="width: 250px">Ações</th>
+                        <th>E-mail</th>
+                        <th>CNPJ/CPF</th>
+                        <th style="width: 350px">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,10 +40,14 @@
                         <td>
                             {{ $cliente->email }}
                         </td>
-                        <td style="width: 10px">
+                        <td>
+                            {{ $cliente->cnpj_cpf }}
+                        </td>
+                        <td style="width: 50px">
                             <a href="{{route('clientes.edit', $cliente->id)}}" class="btn btn-info">Edit</a>
                             <a href="{{route('clientes.show', $cliente->id)}}" class="btn btn-warning">Ver</a>
-                            <a href="{{route('clientes.index', $cliente->id)}}" class="btn btn-primary"><i class="fa fa-cogs"></i> User.</a>
+                            <a href="{{route('clientes.index', $cliente->id)}}" class="btn btn-primary">Usuário</a>
+                            <a href="{{route('clientes.index', $cliente->id)}}" class="btn btn-primary">Veículos</a>
                         </td>
                     </tr>
                     @endforeach

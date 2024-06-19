@@ -325,6 +325,11 @@ return [
                     'icon' => 'fa fa-user-circle',
                 ],
                 [
+                    'text' => 'Tipo logradouro',
+                    'url'  => 'admin/tipologradouros',
+                    'icon' => 'fa fa-user-circle',
+                ],
+                [
                     'text' => 'Tipo Pessoa CNPJ/CPF',
                     'url'  => 'admin/tipopessoas',
                     'icon' => 'fa fa-user-circle',

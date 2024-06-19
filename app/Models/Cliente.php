@@ -9,12 +9,13 @@ class Cliente extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'email', 'tipopessoa_id', 'telefone', 'celular', 'identidade', 'cep', 'tipoLogradouro', 'endereco', 'numero', 'complemeto', 'bairro', 'cidade', 'uf'];
+    protected $fillable = ['name', 'email', 'cnpj_cpf', 'tipopessoa_id', 'telefone', 'celular', 'identidade', 'cep', 'tipologradouro_id', 'endereco', 'numero', 'complemento', 'bairro', 'cidade', 'uf_id'];
 
     public function search($filter = null)
     {
         $results = $this->where('email', 'LIKE', "%{$filter}%")
-                        ->orWhere('cnpf_cpf', 'LIKE', "%{$filter}%")
+                        ->orWhere('email', 'LIKE', "%{$filter}%")
+                        ->orWhere('cnpj_cpf', 'LIKE', "%{$filter}%")
                         ->paginate();
 
         return $results;

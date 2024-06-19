@@ -1,18 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', "Editar Tipo Usuário {$tipousuario->name}")
+@section('title', "Editar Cliente {$cliente->name}")
 
 @section('content_header')
-    <h1>Editar Tipo Usuário <strong>{{ $tipousuario->name }}</strong></h1>
+    <h1>Editar Cliente <strong>{{ $cliente->name }}</strong></h1>
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('tipousuarios.update', $tipousuario->id)}}" class="form" method="post">
+            <form action="{{ route('clientes.update', $cliente->id)}}" class="form" method="post">
                 @method('PUT')
 
-                @include('admin.pages.tipousuarios._partials.form')
+                @include('admin.pages.clientes._partials.form')
           </form>
         </div>
     </div>
