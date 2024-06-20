@@ -3,7 +3,6 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasUuids;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -56,5 +55,31 @@ class User extends Authenticatable
     public function tipousuario()
     {
         return $this->belongsTo(Tipousuario::class);
+    }
+
+    /**
+     * Get permissions Eloquent
+     */
+    public function clientes() {
+        return $this->belongsToMany(Cliente::class);
+    }
+
+    /**
+     * Get permissions not linked with this profile
+     */
+    public function clientesAvailable($filter = null)
+    {
+        $clientes = Cliente::whereNotIn('clientes.id', function($query) {
+            $query->select('cliente_user.cliente_id');
+            $query->from('cliente_user');
+            $query->whereRaw("cliente_user.user_id={$this->id}");
+        })
+        ->where(function ($queryFilter) use ($filter) {
+            if ($filter)
+                $queryFilter->where('clientes.name', 'LIKE', "%{$filter}%");
+        })
+        ->paginate();
+
+        return $clientes;
     }
 }

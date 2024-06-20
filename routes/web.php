@@ -3,8 +3,26 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\{
-    ProfileController, PermissionController, PermissionProfileController, UserController, TipoServicoController, GrupoController, SubgrupoController, UnidadeController, SubgrupoGrupoController, FuncionarioController, ServicoController, AcompanhamentoServicoController, TipoUsuarioController, DetalheAcompanhamentoController, UfController, ClienteController, TipoPessoaController, TipoLogradouroController
+    ProfileController, PermissionController, PermissionProfileController, UserController, TipoServicoController, GrupoController, SubgrupoController, UnidadeController, SubgrupoGrupoController, FuncionarioController, ServicoController, AcompanhamentoServicoController, TipoUsuarioController, DetalheAcompanhamentoController, UfController, ClienteController, TipoPessoaController, TipoLogradouroController, ClienteUserController
 };
+
+/*
+    Routes Cliente x User
+*/
+Route::get('users/{id}/clientes', [ClienteUserController::class, 'clientes'])->name('users.clientes')->middleware('auth');
+
+/**
+ * USers X Cliente
+ */
+Route::get('clientes/{id}/user', [ClienteUserController::class, 'users'])->name('cliente.users')->middleware('auth');
+
+/**
+ * User X Cliente
+ */
+Route::get('users/{id}/cliente/{idCliente}/detach', [ClienteUserController::class, 'detachClienteUser'])->name('users.cliente.detach')->middleware('auth');
+Route::post('users/{id}/clientes/store', [ClienteUserController::class, 'attachClientesUser'])->name('users.clientes.attach')->middleware('auth');
+Route::any('users/{id}/clientes/create', [ClienteUserController::class, 'clientesAvailable'])->name('users.clientes.available')->middleware('auth');
+Route::get('users/{id}/clientes', [ClienteUserController::class, 'clientes'])->name('users.clientes')->middleware('auth');
 
 /**
  * Router Tipo Logradouro
@@ -140,6 +158,7 @@ Route::post('profiles/{id}/permissions/store', [PermissionProfileController::cla
 Route::any('profiles/{id}/permissions/create', [PermissionProfileController::class, 'permissionsAvailable'])->name('profiles.permissions.available')->middleware('auth');
 Route::get('profiles/{id}/permissions', [PermissionProfileController::class, 'permissions'])->name('profiles.permissions')->middleware('auth');
 
+
 /**
  * Router Permission
  */
@@ -151,6 +170,7 @@ Route::resource('permissions', PermissionController::class)->middleware('auth');
 */
 Route::any('/admin/permission/search', [PermissionController::class, 'search'])->name('permissions.search')->middleware('auth');
 Route::resource('/admin/permissions', PermissionController::class)->middleware('auth');
+
 
 /*
     Routes Profiles

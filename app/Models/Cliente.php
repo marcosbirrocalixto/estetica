@@ -20,4 +20,11 @@ class Cliente extends Model
 
         return $results;
     }
+
+    /**
+     * Get users Eloquent
+     */
+    public function users() {
+        return $this->belongsToMany(User::class);
+    }
 }
