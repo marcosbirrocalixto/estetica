@@ -47,7 +47,7 @@
                             <a href="{{route('clientes.edit', $cliente->id)}}" class="btn btn-info">Edit</a>
                             <a href="{{route('clientes.show', $cliente->id)}}" class="btn btn-warning">Ver</a>
                             <a href="{{route('clientes.index', $cliente->id)}}" class="btn btn-primary">Usuário</a>
-                            <a href="{{route('clientes.index', $cliente->id)}}" class="btn btn-primary">Veículos</a>
+                            <a href="{{route('veiculos.cliente.index', $cliente->id)}}" class="btn btn-primary">Veículos</a>
                         </td>
                     </tr>
                     @endforeach

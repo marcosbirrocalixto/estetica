@@ -3,8 +3,20 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\{
-    ProfileController, PermissionController, PermissionProfileController, UserController, TipoServicoController, GrupoController, SubgrupoController, UnidadeController, SubgrupoGrupoController, FuncionarioController, ServicoController, AcompanhamentoServicoController, TipoUsuarioController, DetalheAcompanhamentoController, UfController, ClienteController, TipoPessoaController, TipoLogradouroController, ClienteUserController
+    ProfileController, PermissionController, PermissionProfileController, UserController, TipoServicoController, GrupoController, SubgrupoController, UnidadeController, SubgrupoGrupoController, FuncionarioController, ServicoController, AcompanhamentoServicoController, TipoUsuarioController, DetalheAcompanhamentoController, UfController, ClienteController, TipoPessoaController, TipoLogradouroController, ClienteUserController, VeiculoClienteController
 };
+
+/**
+ * Router Clientes veiculo
+ */
+Route::delete('/veiculos/{id}/clientes/{idCliente}/delete', [VeiculoClienteController::class, 'delete'])->name('veiculos.cliente.delete')->middleware('auth');
+Route::get('/veiculos/{id}/clientes/{idCliente}/show', [VeiculoClienteController::class, 'show'])->name('veiculos.cliente.show')->middleware('auth');
+Route::put('/veiculos/{id}/clientes/{idCliente}/update', [VeiculoClienteController::class, 'update'])->name('veiculos.cliente.update')->middleware('auth');
+Route::get('/veiculos/{id}/clientes/{idCliente}/edit', [VeiculoClienteController::class, 'edit'])->name('veiculos.cliente.edit')->middleware('auth');
+Route::post('/veiculos/{id}/clientes/store', [VeiculoClienteController::class, 'store'])->name('veiculos.cliente.store')->middleware('auth');
+Route::get('/veiculos/{id}/clientes/create', [VeiculoClienteController::class, 'create'])->name('veiculos.cliente.create')->middleware('auth');
+Route::get('veiculos/{id}/clientes', [VeiculoClienteController::class, 'index'])->name('veiculos.cliente.index')->middleware('auth');
+
 
 /*
     Routes Cliente x User
