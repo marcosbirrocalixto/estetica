@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Models\VeiculoCliente;
 use App\Http\Requests\StoreUpdateVeiculoClienteRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class VeiculoClienteController extends Controller
 {
@@ -20,6 +22,8 @@ class VeiculoClienteController extends Controller
 
     public function index($idCliente)
     {
+       //$user = $this->user->with('clientes')->find($idUser);
+
         //dd($idCliente);
         if (!$cliente = $this->cliente->where('id', $idCliente)->first()) {
             return redirect()->back();
@@ -30,6 +34,16 @@ class VeiculoClienteController extends Controller
 
         return view('admin.pages.clientes.veiculos.index', [
             'cliente'      => $cliente,
+            'veiculos'   => $veiculos,
+        ]);
+    }
+
+    public function indexVeiculos()
+    {
+        $veiculos = $this->repository::with('cliente')
+        ->paginate();
+
+        return view('admin.pages.clientes.veiculos.indexVeiculos', [
             'veiculos'   => $veiculos,
         ]);
     }
@@ -123,5 +137,18 @@ class VeiculoClienteController extends Controller
             'id'      => $cliente->id,
         ])
         ->with('message', 'Registro deletado com sucesso!');
+    }
+
+    public function search(Request $request)
+    {
+        $filters = $request->except('_token');
+        //dd($filters);
+        $veiculos = $this->repository->search($request->filter);
+
+        dd($veiculos);
+
+        return view('admin.pages.clientes.veiculos.indexVeiculos', [
+            'veiculos'   => $veiculos,
+        ]);
     }
 }

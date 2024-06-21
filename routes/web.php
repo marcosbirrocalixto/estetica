@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\{
 /**
  * Router Clientes veiculo
  */
+Route::any('admin/veiculos/search', [VeiculoClienteController::class, 'search'])->name('veiculos.search')->middleware('auth');
 Route::delete('/veiculos/{id}/clientes/{idCliente}/delete', [VeiculoClienteController::class, 'delete'])->name('veiculos.cliente.delete')->middleware('auth');
 Route::get('/veiculos/{id}/clientes/{idCliente}/show', [VeiculoClienteController::class, 'show'])->name('veiculos.cliente.show')->middleware('auth');
 Route::put('/veiculos/{id}/clientes/{idCliente}/update', [VeiculoClienteController::class, 'update'])->name('veiculos.cliente.update')->middleware('auth');
@@ -16,6 +17,7 @@ Route::get('/veiculos/{id}/clientes/{idCliente}/edit', [VeiculoClienteController
 Route::post('/veiculos/{id}/clientes/store', [VeiculoClienteController::class, 'store'])->name('veiculos.cliente.store')->middleware('auth');
 Route::get('/veiculos/{id}/clientes/create', [VeiculoClienteController::class, 'create'])->name('veiculos.cliente.create')->middleware('auth');
 Route::get('veiculos/{id}/clientes', [VeiculoClienteController::class, 'index'])->name('veiculos.cliente.index')->middleware('auth');
+Route::get('admin/veiculos', [VeiculoClienteController::class, 'indexVeiculos'])->name('veiculos.indexVeiculos')->middleware('auth');
 
 
 /*

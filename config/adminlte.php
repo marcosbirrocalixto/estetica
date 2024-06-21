@@ -371,6 +371,11 @@ return [
             'url' => 'admin/servicos',
             'icon' => 'fa fa-cogs',
         ],
+        [
+            'text' => 'Veículos',
+            'url' => 'admin/veiculos',
+            'icon' => 'fa fa-cogs',
+        ],
 
     ],
 
