@@ -21,10 +21,10 @@ class StoreUpdateVeiculoClienteRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = $this->segment(2);
+        $id = $this->segment(1);
 
         return [
-            'placa' => "required|min:2|max:255|unique:veiculos_cliente,placa,{$id},id",
+            //'placa' => "required|min:7|max:7|unique:veiculos_cliente,placa,{$id},id",
             'marca' => "nullable|min:3|max:255|",
         ];
     }

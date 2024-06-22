@@ -1,15 +1,15 @@
 @extends('adminlte::page')
 
-@section('title', "Veículos do Cliente {$cliente->name}")
+@section('title', "Ordens de serviço do veículo {$veiculo->placa}")
 
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="{{ route('clientes.index') }}">Serviços</a></li>
-        <li class="breadcrumb-item active"><a href="{{ route('veiculos.cliente.index', $cliente->id) }}" class="active">Veículos </a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('ordemservicos.veiculo.create', $veiculo->id) }}" class="active">Veículos </a></li>
     </ol>
 
-    <h1>Adicionar veículo ao {{ $cliente->name }}  <a href="{{ route('veiculos.cliente.create', $cliente->id)}}" class="btn btn-primary"><i class="fas fa-plus-square"></i> Adicionar veiculos ao cliente</a></h1>
+    <h1>Adicionar ordem de serviço ao {{ $veiculo->placa }}  <a href="{{ route('ordemservicos.veiculo.create', $veiculo->id)}}" class="btn btn-primary"><i class="fas fa-plus-square"></i> Adicionar Ordens de serviço ao veículo</a></h1>
 @stop
 
 @section('content')
@@ -19,25 +19,25 @@
             <table class="table table-condensed">
                 <thead>
                     <tr>
-                        <th>Placa</th>
-                        <th>Marca</th>
+                        <th>Código</th>
+                        <th>Descrição</th>
                         <th style="width: 300px">Ações</th>
                     </tr>
                  </thead>
                 <tbody>
-                    @foreach ($veiculos as $veiculo)
+                    @foreach ($ordemservicos as $ordemservico)
                     <tr>
                         <td>
-                            {{ $veiculo->placa }}
+                            {{ $ordemservico->placa }}
                         </td>
                         <td>
-                            {{ $veiculo->marca }}
+                            {{ $ordemservico->marca }}
                         </td>
                         <td style="width: 50px">
-                            <a href="{{route('veiculos.cliente.edit', [$cliente->id, $veiculo->id])}}" class="btn btn-info">Edit</a>
-                            <a href="{{route('veiculos.cliente.show', [$cliente->id, $veiculo->id])}}" class="btn btn-warning">Ver</a>
+                            <a href="{{route('veiculos.cliente.edit', [$ordemservico->id, $veiculo->id])}}" class="btn btn-info">Edit</a>
+                            <a href="{{route('veiculos.cliente.show', [$ordemservico->id, $veiculo->id])}}" class="btn btn-warning">Ver</a>
                             <a href="{{route('veiculos.cliente.index', $veiculo->id)}}" class="btn btn-primary">Clientes</a>
-                            <a href="{{route('ordemservicos.veiculo.index', $veiculo->id)}}" class="btn btn-primary">O.S.</a>
+                            <a href="{{route('veiculos.cliente.index', $veiculo->id)}}" class="btn btn-primary">O.S.</a>
                         </td>
                     </tr>
                     @endforeach
@@ -46,9 +46,9 @@
         </div>
         <div class="card-footer">
             @if (isset($filters))
-                {!! $veiculos->appends($filters)->links() !!}
+                {!! $ordemservicos->appends($filters)->links() !!}
             @else
-                {!! $veiculos->links() !!}
+                {!! $ordemservicos->links() !!}
             @endif
 
         </div>

@@ -3,8 +3,23 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\{
-    ProfileController, PermissionController, PermissionProfileController, UserController, TipoServicoController, GrupoController, SubgrupoController, UnidadeController, SubgrupoGrupoController, FuncionarioController, ServicoController, AcompanhamentoServicoController, TipoUsuarioController, DetalheAcompanhamentoController, UfController, ClienteController, TipoPessoaController, TipoLogradouroController, ClienteUserController, VeiculoClienteController
+    ProfileController, PermissionController, PermissionProfileController, UserController, TipoServicoController, GrupoController, SubgrupoController, UnidadeController, SubgrupoGrupoController, FuncionarioController, ServicoController, AcompanhamentoServicoController, TipoUsuarioController, DetalheAcompanhamentoController, UfController, ClienteController, TipoPessoaController, TipoLogradouroController, ClienteUserController, VeiculoClienteController, OrdemServicoController
 };
+
+/**
+ * Router Ordem serviços
+ */
+/**
+ * Router Ordem serviço x veiculo
+ */
+Route::any('admin/ordemservicos/search', [OrdemServicoController::class, 'search'])->name('ordemservicos.search')->middleware('auth');
+Route::delete('/ordemservicos/{id}/veiculos/{idVeiculo}/delete', [OrdemServicoController::class, 'delete'])->name('ordemservicos.veiculo.delete')->middleware('auth');
+Route::get('/ordemservicos/{id}/veiculos/{idVeiculo}/show', [OrdemServicoController::class, 'show'])->name('ordemservicos.veiculo.show')->middleware('auth');
+Route::put('/ordemservicos/{id}/veiculos/{idVeiculo}/update', [OrdemServicoController::class, 'update'])->name('ordemservicos.veiculo.update')->middleware('auth');
+Route::get('/ordemservicos/{id}/veiculos/{idVeiculo}/edit', [OrdemServicoController::class, 'edit'])->name('ordemservicos.veiculo.edit')->middleware('auth');
+Route::post('/ordemservicos/{id}/veiculos/store', [OrdemServicoController::class, 'store'])->name('ordemservicos.veiculo.store')->middleware('auth');
+Route::get('/ordemservicos/{id}/veiculos/create', [OrdemServicoController::class, 'create'])->name('ordemservicos.veiculo.create')->middleware('auth');
+Route::get('ordemservicos/{id}/veiculos', [OrdemServicoController::class, 'index'])->name('ordemservicos.veiculo.index')->middleware('auth');
 
 /**
  * Router Clientes veiculo
