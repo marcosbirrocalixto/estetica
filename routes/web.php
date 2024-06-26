@@ -3,8 +3,27 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\{
-    ProfileController, PermissionController, PermissionProfileController, UserController, TipoServicoController, GrupoController, SubgrupoController, UnidadeController, SubgrupoGrupoController, FuncionarioController, ServicoController, AcompanhamentoServicoController, TipoUsuarioController, DetalheAcompanhamentoController, UfController, ClienteController, TipoPessoaController, TipoLogradouroController, ClienteUserController, VeiculoClienteController, OrdemServicoController
+    ProfileController, PermissionController, PermissionProfileController, UserController, TipoServicoController, GrupoController, SubgrupoController, UnidadeController, SubgrupoGrupoController, FuncionarioController, ServicoController, AcompanhamentoServicoController, TipoUsuarioController, DetalheAcompanhamentoController, UfController, ClienteController, TipoPessoaController, TipoLogradouroController, ClienteUserController, VeiculoClienteController, OrdemServicoController, ServicosOrdemServicoController
 };
+
+/*
+    Routes Permission x Servico
+*/
+Route::get('ordemservicos/{id}/servicos', [ServicosOrdemServicoController::class, 'servicos'])->name('ordemservicos.servicos')->middleware('auth');
+
+/**
+ * ordemservicos X servico
+ */
+Route::get('servicos/{id}/ordemservico', [ServicosOrdemServicoController::class, 'ordemservicos'])->name('servico.ordemservicos')->middleware('auth');
+
+/**
+ * servico X ordemservico
+ */
+Route::get('ordemservicos/{id}/servico/{idServico}/detach', [ServicosOrdemServicoController::class, 'detachServicoOrdemservico'])->name('ordemservicos.servico.detach')->middleware('auth');
+Route::post('ordemservicos/{id}/servicos/store', [ServicosOrdemServicoController::class, 'attachServicosOrdemServico'])->name('ordemservicos.servicos.attach')->middleware('auth');
+Route::any('ordemservicos/{id}/servicos/create', [ServicosOrdemServicoController::class, 'servicosAvailable'])->name('ordemservicos.servicos.available')->middleware('auth');
+Route::get('ordemservicos/{id}/servicos', [ServicosOrdemServicoController::class, 'servicos'])->name('ordemservicos.servicos')->middleware('auth');
+
 
 /**
  * Router Ordem serviços

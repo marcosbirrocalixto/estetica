@@ -13,8 +13,14 @@ return new class extends Migration
     {
         Schema::create('ordens_servico', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('cliente_id');
             $table->unsignedBigInteger('veiculo_id');
+            $table->unsignedBigInteger('cliente_id');
+            $table->unsignedBigInteger('user_id');
+            $table->datetime('dataentrada');
+            $table->datetime('dataprogramada');
+            $table->double('kminicial', 10, 0);
+            $table->string('combustivel');
+            $table->text('observacao');
             $table->timestamps();
         });
     }

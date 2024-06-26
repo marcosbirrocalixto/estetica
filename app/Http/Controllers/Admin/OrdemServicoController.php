@@ -6,15 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\OrdemServico;
 use App\Models\VeiculoCliente;
+use App\Models\Funcionario;
+use App\Http\Requests\StoreUpdateOrdemServicoRequest;
 
 class OrdemServicoController extends Controller
 {
-    protected $repository, $veiculo;
+    protected $repository, $veiculo, $funcionario;
 
-    public function  __construct(OrdemServico $ordemservico, VeiculoCliente $veiculo)
+    public function  __construct(OrdemServico $ordemservico, VeiculoCliente $veiculo, Funcionario $funcionario)
     {
         $this->repository = $ordemservico;
         $this->veiculo = $veiculo;
+        $this->funcionario = $funcionario;
     }
 
     public function index($idVeiculo)
@@ -27,6 +30,7 @@ class OrdemServicoController extends Controller
 
         $ordemservicos = $this->repository::with('veiculo')
         ->where('veiculo_id', $idVeiculo)
+        ->orderby('id', 'desc')
         ->paginate();
 
         //dd($ordemservicos);
@@ -47,6 +51,8 @@ class OrdemServicoController extends Controller
         $user = auth()->user();
         //dd($user);
 
+        $funcionarios = $this->funcionario->get();
+
         if (!$veiculo = $this->veiculo::with('cliente')->where('id', $idVeiculo)->first()) {
             return redirect()->back();
         };
@@ -54,8 +60,9 @@ class OrdemServicoController extends Controller
         //dd($veiculo);
 
         return view('admin.pages.clientes.veiculos.ordemservicos.create', [
-            'veiculo'   => $veiculo,
-            'user'      => $user,
+            'veiculo'       => $veiculo,
+            'user'          => $user,
+            'funcionarios'  => $funcionarios,
         ]);
     }
 
@@ -68,14 +75,13 @@ class OrdemServicoController extends Controller
     public function store(StoreUpdateOrdemServicoRequest $request)
     {
         $data = $request->all();
+        //dd($data);
 
-        if ($request->hasFile('image') && $request->foto->isValid()) {
-            $data['foto'] = $request->foto->store('ordemservicos');
-        }
+        $ordem = $this->repository->create($data);
+        //$id = $ordem->id;
+        //dd($id);
 
-        $this->repository->create($data);
-
-        return redirect()->route('ordemservicos.index');
+        return redirect()->route('ordemservicos.servicos', $ordem->id);
     }
 
     /**
@@ -176,5 +182,25 @@ class OrdemServicoController extends Controller
             'ordemservicos' => $ordemservicos,
             'filters' => $filters,
         ]);
+    }
+
+    public function attachServicosOrdemservicos(Request $request, $idOrdemServico)
+    {
+        if (!$ordemservico = $this->OrdemServico->find($idOrdemServico)) {
+            return redirect()->back();
+        }
+
+        $servicos = $this->repository->get();
+
+        if (!$request->permissions || count($request->permissions) === 0) {
+            return redirect()
+                    ->back()
+                    ->with('info', 'É necessário selecionar pelo menos uma permissão!');
+        }
+        //dd($request->permissions);
+
+        $ordemservico->servicos()->attach($request->servicos);
+
+        return redirect()->route('ordemservicos.servicos', $ordemservico->id);
     }
 }

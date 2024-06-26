@@ -28,7 +28,7 @@
                         <th>Nome</th>
                         <th>E-mail</th>
                         <th>CNPJ/CPF</th>
-                        <th style="width: 350px">Ações</th>
+                        <th style="width: 400px">Ações</th>
                     </tr>
                 </thead>
                 <tbody>

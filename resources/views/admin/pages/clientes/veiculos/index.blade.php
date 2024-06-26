@@ -21,7 +21,7 @@
                     <tr>
                         <th>Placa</th>
                         <th>Marca</th>
-                        <th style="width: 300px">Ações</th>
+                        <th style="width: 400px">Ações</th>
                     </tr>
                  </thead>
                 <tbody>
@@ -36,8 +36,8 @@
                         <td style="width: 50px">
                             <a href="{{route('veiculos.cliente.edit', [$cliente->id, $veiculo->id])}}" class="btn btn-info">Edit</a>
                             <a href="{{route('veiculos.cliente.show', [$cliente->id, $veiculo->id])}}" class="btn btn-warning">Ver</a>
-                            <a href="{{route('veiculos.cliente.index', $veiculo->id)}}" class="btn btn-primary">Clientes</a>
-                            <a href="{{route('ordemservicos.veiculo.index', $veiculo->id)}}" class="btn btn-primary">O.S.</a>
+                            <a href="{{route('ordemservicos.veiculo.index', $veiculo->id)}}" class="btn btn-primary">Checklist</a>
+                            <a href="{{route('ordemservicos.veiculo.index', $veiculo->id)}}" class="btn btn-primary">Ordem Serv.</a>
                         </td>
                     </tr>
                     @endforeach

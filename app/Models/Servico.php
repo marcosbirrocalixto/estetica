@@ -25,6 +25,4 @@ class Servico extends Model
         return $results;
     }
 
-
-
 }

@@ -6,15 +6,20 @@
     <div class="row">
         <div class="form-group col-3">
             <label>Placa:</label>
+            <input type="hidden" name="veiculo_id" class="form-control" placeholder="id" readonly value="{{ $veiculo->id ?? old('id')}} ">
             <input type="text" name="placa" class="form-control" placeholder="Placa" readonly value="{{ $veiculo->placa ?? old('placa')}} ">
         </div>
-        <div class="form-group col-4">
-            <label>Cliente:</label>
-            <input type="text" name="name" class="form-control" placeholder="Nome" readonly value="{{ $veiculo->cliente->name ?? old('name')}} ">
+        <div class="form-group col-3">
+                <label>Cliente:</label>
+                <input type="hidden" name="cliente_id" class="form-control" placeholder="Cliente" readonly value="{{ $veiculo->cliente->id ?? old('id')}} ">
+                <input type="text" name="cliente_name" class="form-control" placeholder="Cliente" readonly value="{{ $veiculo->cliente->name ?? old('name')}} ">
         </div>
-        <div class="form-group col-4">
-        <label>Rcepção:</label>
-            <input type="text" name="name" class="form-control" placeholder="Funcionário" readonly value="{{ $user->name ?? old('name')}} ">
+
+
+        <div class="form-group col-3">
+                <label>Usuário:</label>
+                <input type="hidden" name="user_id" class="form-control" placeholder="Usuário" readonly value="{{ $user->id ?? old('id')}} " >
+                <input type="text" name="usuario_name" class="form-control" placeholder="Usuário" readonly value="{{ $user->name ?? old('name')}} " >
         </div>
     </div>
 </div>
@@ -23,15 +28,11 @@
     <div class="row">
         <div class="form-group col-3">
             <label>Entrada Oficina:</label>
-            <input type="datetime-local" name="dataplan" id="dataplan" class="form-control">
+            <input type="datetime-local" name="dataentrada" id="dataentrada" class="form-control">
         </div>
         <div class="form-group col-3">
             <label>Previsão Entrega:</label>
-            <input type="datetime-local" name="dataprog" id="dataprog" class="form-control">
-        </div>
-        <div class="form-group col-3">
-            <label>Data Liberação:</label>
-            <input type="datetime-local" name="dataprog" id="dataprog" class="form-control">
+            <input type="datetime-local" name="dataprogramada" id="dataprogramada" class="form-control">
         </div>
     </div>
 </div>
@@ -40,24 +41,16 @@
     <div class="row">
         <div class="form-group col-3">
             <label>KM Inicial:</label>
-            <input type="text" name="dataplan" id="dataplan" class="form-control">
+            <input type="number" name="kminicial" id="kminicial" class="form-control">
         </div>
         <div class="form-group col-3">
             <label>Combustível:</label><br>
-            <select name="cars" id="cars">
-                <option value="volvo">25%</option>
-                <option value="saab">50%</option>
-                <option value="mercedes">75%</option>
-                <option value="audi">100%</option>
+            <select name="combustivel" id="cars">
+                <option value="25">25%</option>
+                <option value="50">50%</option>
+                <option value="75">75%</option>
+                <option value="100">100%</option>
             </select>
-        </div>
-        <div class="form-group col-3">
-            <label>Checklist Recepção:</label>
-            <input type="text" name="dataplan" id="dataplan" class="form-control">
-        </div>
-        <div class="form-group col-3">
-            <label>Checklist Liberação:</label>
-            <input type="text" name="dataplan" id="dataplan" class="form-control">
         </div>
     </div>
 </div>

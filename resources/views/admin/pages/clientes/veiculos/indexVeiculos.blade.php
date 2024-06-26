@@ -46,6 +46,7 @@
                         <td style="width: 50px">
                             <a href="{{route('veiculos.cliente.edit', [$veiculo->cliente->id, $veiculo->id])}}" class="btn btn-info">Edit</a>
                             <a href="{{route('veiculos.cliente.show', [$veiculo->cliente->id, $veiculo->id])}}" class="btn btn-warning">Ver</a>
+                            <a href="{{route('ordemservicos.veiculo.index', $veiculo->id)}}" class="btn btn-primary">Ordem Serv.</a>
                         </td>
                     </tr>
                     @endforeach
