@@ -49,7 +49,7 @@
                             {{ $servico->tempoPrevisto }}
                         </td>
                         <td style="width: 10px">
-                            <a href="{{route('ordemservicos.servico.detach', [$ordemservico->id, $servico->id])}}" class="btn btn-warning">Desvinvular</a>
+                            <a href="{{route('ordemservicos.servico.detach', [$ordemservico->id, $servico->id])}}" class="btn btn-warning">Desvincular</a>
                         </td>
                     </tr>
                     @endforeach

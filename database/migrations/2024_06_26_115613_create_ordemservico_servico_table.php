@@ -11,26 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('servicos_ordemservico', function (Blueprint $table) {
+        Schema::create('ordemservico_servico', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('servico_id');
-            $table->unsignedBigInteger('ordem_servico_id');
-            $table->unsignedBigInteger('funcionario_id');
-
+            $table->unsignedBigInteger('ordemservico_id');
 
             $table->foreign('servico_id')
                         ->references('id')
                         ->on('servicos')
                         ->onDelete('cascade');
 
-            $table->foreign('ordem_servico_id')
+            $table->foreign('ordemservico_id')
                         ->references('id')
-                        ->on('ordens_servico')
-                        ->onDelete('cascade');
-
-            $table->foreign('funcionario_id')
-                        ->references('id')
-                        ->on('funcionarios')
+                        ->on('ordemservicos')
                         ->onDelete('cascade');
         });
     }
@@ -40,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('servicos_ordemservico');
+        Schema::dropIfExists('servicoordemservicos');
     }
 };

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ordens_servico', function (Blueprint $table) {
+        Schema::create('ordemservicos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('veiculo_id');
             $table->unsignedBigInteger('cliente_id');
@@ -22,6 +22,21 @@ return new class extends Migration
             $table->string('combustivel');
             $table->text('observacao');
             $table->timestamps();
+
+            $table->foreign('veiculo_id')
+                        ->references('id')
+                        ->on('veiculos')
+                        ->onDelete('cascade');
+
+            $table->foreign('cliente_id')
+                        ->references('id')
+                        ->on('clientes')
+                        ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                        ->references('id')
+                        ->on('users')
+                        ->onDelete('cascade');
         });
     }
 
@@ -30,6 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ordens_servico');
+        Schema::dropIfExists('ordemservicos');
     }
 };

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\{
 /*
     Routes Permission x Servico
 */
+
 Route::get('ordemservicos/{id}/servicos', [ServicosOrdemServicoController::class, 'servicos'])->name('ordemservicos.servicos')->middleware('auth');
 
 /**
@@ -26,11 +27,9 @@ Route::get('ordemservicos/{id}/servicos', [ServicosOrdemServicoController::class
 
 
 /**
- * Router Ordem serviços
- */
-/**
  * Router Ordem serviço x veiculo
  */
+
 Route::any('admin/ordemservicos/search', [OrdemServicoController::class, 'search'])->name('ordemservicos.search')->middleware('auth');
 Route::delete('/ordemservicos/{id}/veiculos/{idVeiculo}/delete', [OrdemServicoController::class, 'delete'])->name('ordemservicos.veiculo.delete')->middleware('auth');
 Route::get('/ordemservicos/{id}/veiculos/{idVeiculo}/show', [OrdemServicoController::class, 'show'])->name('ordemservicos.veiculo.show')->middleware('auth');
@@ -39,6 +38,9 @@ Route::get('/ordemservicos/{id}/veiculos/{idVeiculo}/edit', [OrdemServicoControl
 Route::post('/ordemservicos/{id}/veiculos/store', [OrdemServicoController::class, 'store'])->name('ordemservicos.veiculo.store')->middleware('auth');
 Route::get('/ordemservicos/{id}/veiculos/create', [OrdemServicoController::class, 'create'])->name('ordemservicos.veiculo.create')->middleware('auth');
 Route::get('ordemservicos/{id}/veiculos', [OrdemServicoController::class, 'index'])->name('ordemservicos.veiculo.index')->middleware('auth');
+Route::get('ordemservicos/{id}/servicos', [OrdemServicoController::class, 'servicos'])->name('ordemservicos.servicos')->middleware('auth');
+
+
 
 /**
  * Router Clientes veiculo

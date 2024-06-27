@@ -32,6 +32,8 @@ class Profile extends Model
      */
     public function permissionsAvailable($filter = null)
     {
+        //dd($this->id);
+
         $permissions = Permission::whereNotIn('permissions.id', function($query) {
             $query->select('permission_profile.permission_id');
             $query->from('permission_profile');

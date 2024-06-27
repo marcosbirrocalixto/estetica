@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Servico;
-use App\Models\OrdemServico;
+use App\Models\Ordemservico;
 use App\Models\Funcionario;
 use Illuminate\Http\Request;
 
@@ -12,17 +12,17 @@ class ServicosOrdemServicoController extends Controller
 {
     protected $ordemservico, $servico, $funcionarios;
 
-    public function __construct(OrdemServico $ordemservico, Servico $servico, Funcionario $funcionarios)
+    public function __construct(Ordemservico $ordemservico, Servico $servico, Funcionario $funcionarios)
     {
-        $this->ordemservico = $ordemservico;
-        $this->servico = $servico;
-        $this->funcionario = $funcionarios;
+        $this->ordemservico         = $ordemservico;
+        $this->servico              = $servico;
+        $this->funcionario          = $funcionarios;
     }
 
-    public function servicos($idOrdemServico)
+    public function servicos($id)
     {
         //dd($idOrdemServico);
-        $ordemservico = $this->ordemservico->find($idOrdemServico);
+        $ordemservico = $this->ordemservico->find($id);
         //dd($ordemservico);
 
         if (!$ordemservico) {
@@ -31,7 +31,7 @@ class ServicosOrdemServicoController extends Controller
 
         $funcionarios = $this->funcionario->get();
 
-        $servicos = $ordemservico->servicos()->paginate();
+        $servicos = $this->servico->paginate();
         //dd($servicos);
 
         return view('admin.pages.ordemservicos.servicos.index', [
@@ -55,9 +55,9 @@ class ServicosOrdemServicoController extends Controller
         ]);
     }
 
-    public function servicosAvailable(Request $request, $idOrdemServico)
+    public function servicosAvailable(Request $request, $id)
     {
-        if (!$ordemservico = $this->ordemservico->find($idOrdemServico)) {
+        if (!$ordemservico = $this->ordemservico->find($id)) {
             return redirect()->back();
         }
 
@@ -75,13 +75,16 @@ class ServicosOrdemServicoController extends Controller
         ]);
     }
 
-    public function attachServicosOrdemServico(Request $request, $idOrdemServico)
+    public function attachServicosOrdemServico(Request $request, $id)
     {
-        if (!$ordemservico = $this->ordemservico->find($idOrdemServico)) {
+        //dd($id);
+        if (!$ordemservico = $this->ordemservico->find($id)) {
             return redirect()->back();
         }
 
         $servicos = $ordemservico->servicosAvailable();
+
+        //dd($servicos);
 
         if (!$request->servicos || count($request->servicos) === 0) {
             return redirect()
@@ -91,6 +94,7 @@ class ServicosOrdemServicoController extends Controller
         //dd($request->servicos);
 
         $ordemservico->servicos()->attach($request->servicos);
+        //$profile->permissions()->attach($request->permissions);
 
         return redirect()->route('ordemservicos.servicos', $ordemservico->id);
     }

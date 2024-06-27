@@ -5,36 +5,47 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrdemServico extends Model
+class Ordemservico extends Model
 {
     use HasFactory;
 
     protected $fillable = ['cliente_id', 'veiculo_id', 'user_id', 'dataentrada', 'dataprogramada', 'kminicial', 'combustivel', 'observacao'];
 
-    protected $table = 'ordens_servico';
+    protected $table = 'ordemservicos';
+
+    public function servico()
+    {
+        return $this->hasMany(Servico::class);
+    }
+
+    /**
+     * Get permissions Eloquent
+     */
+    public function veiculos() {
+        return $this->belongsToMany(Veiculo::class);
+    }
 
     public function servicos()
     {
-        return $this->hasMany(ServicoOrdemServico::class);
+        return $this->belongsToMany(Servico::class);
     }
 
-
     /**
-     * Get servicos not linked with this ordem servico
+     * Get permissions not linked with this profile
      */
     public function servicosAvailable($filter = null)
     {
         $servicos = Servico::whereNotIn('servicos.id', function($query) {
-            $query->select('servicos_ordemservico.servico_id');
-            $query->from('servicos_ordemservico');
-            $query->whereRaw("servicos_ordemservico.ordem_servico_id={$this->id}");
+            $query->select('ordemservico_servico.servico_id');
+            $query->from('ordemservico_servico');
+            $query->whereRaw("ordemservico_servico.ordemservico_id={$this->id}");
         })
         ->where(function ($queryFilter) use ($filter) {
             if ($filter)
                 $queryFilter->where('servicos.name', 'LIKE', "%{$filter}%");
         })
         ->paginate();
-        //dd($servicos);
+        //dd($permissions);
 
         return $servicos;
     }

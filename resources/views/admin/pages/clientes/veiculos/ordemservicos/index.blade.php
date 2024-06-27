@@ -19,8 +19,10 @@
             <table class="table table-condensed">
                 <thead>
                     <tr>
-                        <th>Código</th>
-                        <th>Descrição</th>
+                        <th>Ordem Serviço</th>
+                        <th>Veículo</th>
+                        <th>Data entrada</th>
+                        <th>Data Prevista</th>
                         <th style="width: 300px">Ações</th>
                     </tr>
                  </thead>
@@ -28,16 +30,21 @@
                     @foreach ($ordemservicos as $ordemservico)
                     <tr>
                         <td>
-                            {{ $ordemservico->placa }}
+                            {{ $ordemservico->id }}
                         </td>
                         <td>
-                            {{ $ordemservico->marca }}
+                            {{ $veiculo->placa }}
+                        </td>
+                        <td>
+                            {{ date( 'd/m/Y H:i' , strtotime($ordemservico->dataentrada))}}
+                        </td>
+                        <td>
+                            {{ date( 'd/m/Y H:i' , strtotime($ordemservico->dataprogramada))}}
                         </td>
                         <td style="width: 50px">
                             <a href="{{route('veiculos.cliente.edit', [$ordemservico->id, $veiculo->id])}}" class="btn btn-info">Edit</a>
                             <a href="{{route('veiculos.cliente.show', [$ordemservico->id, $veiculo->id])}}" class="btn btn-warning">Ver</a>
-                            <a href="{{route('veiculos.cliente.index', $veiculo->id)}}" class="btn btn-primary">Clientes</a>
-                            <a href="{{route('veiculos.cliente.index', $veiculo->id)}}" class="btn btn-primary">O.S.</a>
+                            <a href="{{route('ordemservicos.servicos.available', $ordemservico->id)}}" class="btn btn-primary">Serviços</a>
                         </td>
                     </tr>
                     @endforeach

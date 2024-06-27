@@ -6,13 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class VeiculoCliente extends Model
+class Veiculo extends Model
 {
     use HasFactory;
 
     protected $fillable = ['placa', 'marca'];
-
-    protected $table = 'veiculos_cliente';
 
     public function cliente()
     {
@@ -22,6 +20,18 @@ class VeiculoCliente extends Model
     public function clientes()
     {
         return $this->hasMany(Cliente::class);
+    }
+
+    /**
+     * Get profiles Eloquent
+     */
+    public function ordemservicos() {
+        return $this->belongsToMany(OrdemServico::class);
+    }
+
+    public function ordemservico()
+    {
+        return $this->belongsto(OdemServico::class);
     }
 
     public function search($filter = null)

@@ -25,4 +25,11 @@ class Servico extends Model
         return $results;
     }
 
+    /**
+     * Get profiles Eloquent
+     */
+    public function ordemservicos() {
+        return $this->belongsToMany(Ordemservico::class);
+    }
+
 }

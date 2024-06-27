@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
-use App\Models\VeiculoCliente;
+use App\Models\Veiculo;
 use App\Http\Requests\StoreUpdateVeiculoClienteRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,9 +14,9 @@ class VeiculoClienteController extends Controller
 {
     protected $repository, $cliente;
 
-    public function __construct(VeiculoCliente $veiculoCliente, Cliente $cliente)
+    public function __construct(Veiculo $veiculo, Cliente $cliente)
     {
-        $this->repository = $veiculoCliente;
+        $this->repository = $veiculo;
         $this->cliente = $cliente;
     }
 
