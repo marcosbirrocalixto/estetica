@@ -52,7 +52,8 @@
                             </td>
                             <td>
                             <div class="form-group">
-                                <select class="form-control" name="funcionario_id">
+                                <select class="form-control" name="funcionarios[]">
+                                    <option value=""></option>
                                     @foreach ( $funcionarios as $funcionario )
                                         <option value="{{ $funcionario->id }}">{{ $funcionario->name }}</option>
                                     @endforeach

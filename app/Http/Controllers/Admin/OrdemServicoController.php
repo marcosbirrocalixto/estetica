@@ -5,21 +5,24 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ordemservico;
+use App\Models\ServicoOrdemServico;
 use App\Models\Veiculo;
 use App\Models\Funcionario;
 use App\Models\Servico;
 use App\Http\Requests\StoreUpdateOrdemServicoRequest;
+use Illuminate\Support\Facades\DB;
 
 class OrdemServicoController extends Controller
 {
     protected $repository, $veiculo, $funcionario, $servicoordemservico;
 
-    public function  __construct(Ordemservico $ordemservico, Veiculo $veiculo, Funcionario $funcionario, Servico $servico)
+    public function  __construct(Ordemservico $ordemservico, Veiculo $veiculo, Funcionario $funcionario, Servico $servico, ServicoOrdemServico $servicoordemservico)
     {
         $this->repository = $ordemservico;
         $this->veiculo = $veiculo;
         $this->funcionario = $funcionario;
         $this->servico = $servico;
+        $this->servicoordemservico = $servicoordemservico;
     }
 
     public function index($idVeiculo)
@@ -186,25 +189,67 @@ class OrdemServicoController extends Controller
         ]);
     }
 
-    public function servicos($idOrdemServico)
+    public function executar($idOrdemServico)
     {
-        //dd($idOrdemServico);
-        $ordemservico = $this->repository->find($idOrdemServico);
+        $user = auth()->user();
+        //dd($user);
+
+        $i = 1;
+
+        $ordemservico = $this->repository
+            ->where('id', $idOrdemServico)
+            ->first();
         //dd($ordemservico);
 
-        if (!$ordemservico) {
-            return redirect()->back();
-        }
-
-        $funcionarios = $this->funcionario->get();
-
-        $servicos = $this->servico->paginate();
+        $servicos = DB::table('ordemservico_servico')
+        ->Join('servicos', 'servicos.id', '=', 'ordemservico_servico.servico_id')
+        ->Join('ordemservicos', 'ordemservicos.id', '=', 'ordemservico_servico.ordemservico_id')
+        ->Join('funcionarios', 'funcionarios.id', '=', 'ordemservico_servico.funcionario_id')
+        //->join('funcionarios', 'funcionarios.id', '=', 'ordemservico_servico.funcionario_id')
+        ->select('servicos.id as servicoId', 'servicos.name as nomeservico', 'servicos.description as descriptionServico', 'servicos.price', 'servicos.tempoPrevisto', 'ordemservicos.id as idOrdemServico', 'ordemservicos.veiculo_id as idVeiculo', 'ordemservicos.cliente_id as idCliente', 'funcionarios.id as idfuncionario', 'funcionarios.name as nomefuncionario')
+        ->where('ordemservico_servico.ordemservico_id', '=', "$idOrdemServico")
+        ->get();
         //dd($servicos);
 
-        return view('admin.pages.ordemservicos.servicos.index', [
-            'ordemservico' => $ordemservico,
-            'servicos' => $servicos,
-            'funcionarios' => $funcionarios,
+        if (empty($servicos)) {
+            return redirect()->back()
+                ->with('message', 'Não existem serviços selecionados para a Ordem de Servico!');;
+        }
+
+        if (!$veiculo = $this->veiculo::with('cliente')->where('id', $ordemservico->veiculo_id)->first()) {
+            return redirect()->back();
+        };
+        //dd($veiculo);
+
+        return view('admin.pages.clientes.veiculos.ordemservicos.executar', [
+            'user'          => $user,
+            'ordemservico'  => $ordemservico,
+            'servicos'      => $servicos,
+            'veiculo'       => $veiculo,
+            'i'             => $i,
         ]);
     }
+
+    public function gravarOrdemServico(Request $request, $idOrdemServico)
+    {
+        $ordemservico = $this->repository
+        ->where('id', $idOrdemServico)
+        ->first();
+        //dd($ordemservico);
+
+        //dd($request->all());
+
+        //dd($Id);
+        $data['kmentrega'] = $request->kmentrega;
+        $data['combustivelEntrega'] = $request->combustivelEntrega;
+        $data['dataencerrada'] = $request->dataencerrada;
+        //dd($data);
+
+        $ordem = $this->repository->where('id', $idOrdemServico)->update($data);
+        //$id = $ordem->id;
+        //dd($ordem);
+
+        return redirect()->route('ordemservicos.veiculo.index', $ordemservico->veiculo_id);
+    }
+
 }

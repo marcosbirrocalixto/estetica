@@ -32,4 +32,8 @@ class Servico extends Model
         return $this->belongsToMany(Ordemservico::class);
     }
 
+    public function funcionarios() {
+        return $this->belongsToMany(Funcionario::class);
+    }
+
 }

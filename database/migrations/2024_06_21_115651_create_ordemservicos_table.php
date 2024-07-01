@@ -17,10 +17,13 @@ return new class extends Migration
             $table->unsignedBigInteger('cliente_id');
             $table->unsignedBigInteger('user_id');
             $table->datetime('dataentrada');
-            $table->datetime('dataprogramada');
+            $table->datetime('dataprogramada')->nullable();
+            $table->datetime('dataencerrada')->nullable();
             $table->double('kminicial', 10, 0);
-            $table->string('combustivel');
-            $table->text('observacao');
+            $table->double('kmentrega', 10, 0)->nullable();
+            $table->integer('combustivel');
+            $table->integer('combustivelEntrega')->nullable();
+            $table->text('observacao')->nullable();
             $table->timestamps();
 
             $table->foreign('veiculo_id')

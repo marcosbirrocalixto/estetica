@@ -9,7 +9,7 @@ class Ordemservico extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cliente_id', 'veiculo_id', 'user_id', 'dataentrada', 'dataprogramada', 'kminicial', 'combustivel', 'observacao'];
+    protected $fillable = ['cliente_id', 'veiculo_id', 'user_id', 'dataentrada', 'dataprogramada', 'dataencerrada', 'kminicial', 'kmentrega', 'combustivel', 'combustivelEntrega', 'observacao'];
 
     protected $table = 'ordemservicos';
 

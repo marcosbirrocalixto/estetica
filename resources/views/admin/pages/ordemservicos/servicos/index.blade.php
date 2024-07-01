@@ -30,6 +30,7 @@
                         <th>Descrição</th>
                         <th>Preço</th>
                         <th>Tempo Previsto</th>
+                        <th>Funcionário</th>
                         <th style="width: 50px">Ações</th>
                     </tr>
                 </thead>
@@ -37,7 +38,7 @@
                     @foreach ($servicos as $servico)
                     <tr>
                         <td>
-                            {{ $servico->name }}
+                            {{ $servico->nomeservico }}
                         </td>
                         <td>
                             {{ $servico->description }}
@@ -48,8 +49,14 @@
                         <td>
                             {{ $servico->tempoPrevisto }}
                         </td>
+                        <td>
+                            {{ $servico->nomefuncionario }}
+                        </td>
                         <td style="width: 10px">
-                            <a href="{{route('ordemservicos.servico.detach', [$ordemservico->id, $servico->id])}}" class="btn btn-warning">Desvincular</a>
+                            <a href="{{route('ordemservicos.servico.detach', [$ordemservico->id, $servico->servicoId])}}" class="btn btn-warning">Desvincular</a>
+                        </td>
+                        <td style="width: 10px">
+                        <a href="{{route('acompanhamentos.servico.index', $servico->servicoId)}}" class="btn btn-primary">Acompanhamento</a>
                         </td>
                     </tr>
                     @endforeach

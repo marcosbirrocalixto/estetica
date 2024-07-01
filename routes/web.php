@@ -38,7 +38,8 @@ Route::get('/ordemservicos/{id}/veiculos/{idVeiculo}/edit', [OrdemServicoControl
 Route::post('/ordemservicos/{id}/veiculos/store', [OrdemServicoController::class, 'store'])->name('ordemservicos.veiculo.store')->middleware('auth');
 Route::get('/ordemservicos/{id}/veiculos/create', [OrdemServicoController::class, 'create'])->name('ordemservicos.veiculo.create')->middleware('auth');
 Route::get('ordemservicos/{id}/veiculos', [OrdemServicoController::class, 'index'])->name('ordemservicos.veiculo.index')->middleware('auth');
-Route::get('ordemservicos/{id}/servicos', [OrdemServicoController::class, 'servicos'])->name('ordemservicos.servicos')->middleware('auth');
+Route::get('/ordemservicos/{id}', [OrdemServicoController::class, 'executar'])->name('ordemservicos.veiculo.executar')->middleware('auth');
+Route::post('/ordemservicos/{id}/gravarOrdemServico', [OrdemServicoController::class, 'gravarOrdemServico'])->name('ordemservicos.gravarOrdemServico')->middleware('auth');
 
 
 

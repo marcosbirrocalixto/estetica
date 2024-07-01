@@ -15,6 +15,11 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('servico_id');
             $table->unsignedBigInteger('ordemservico_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('funcionario_id')->nullable();
+            $table->time('tempoPrevisto')->nullable();
+            $table->time('tempoRealizado')->nullable();
+            $table->double('valorCobrado', 10, 2)->nullable();
 
             $table->foreign('servico_id')
                         ->references('id')
@@ -24,6 +29,16 @@ return new class extends Migration
             $table->foreign('ordemservico_id')
                         ->references('id')
                         ->on('ordemservicos')
+                        ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                        ->references('id')
+                        ->on('users')
+                        ->onDelete('cascade');
+
+            $table->foreign('funcionario_id')
+                        ->references('id')
+                        ->on('funcionarios')
                         ->onDelete('cascade');
         });
     }

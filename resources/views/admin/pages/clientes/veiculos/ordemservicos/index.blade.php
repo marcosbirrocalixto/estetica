@@ -23,7 +23,8 @@
                         <th>Veículo</th>
                         <th>Data entrada</th>
                         <th>Data Prevista</th>
-                        <th style="width: 300px">Ações</th>
+                        <th>Data Encerrada</th>
+                        <th style="width: 350px">Ações</th>
                     </tr>
                  </thead>
                 <tbody>
@@ -41,10 +42,18 @@
                         <td>
                             {{ date( 'd/m/Y H:i' , strtotime($ordemservico->dataprogramada))}}
                         </td>
+                        @if( isset($ordemservico->dataencerrada) )
+                            <td>{{ date( 'd/m/Y H:i' , strtotime($ordemservico->dataencerrada)) }}
+                        @else
+                            <td></td>
+                        @endif
                         <td style="width: 50px">
                             <a href="{{route('veiculos.cliente.edit', [$ordemservico->id, $veiculo->id])}}" class="btn btn-info">Edit</a>
                             <a href="{{route('veiculos.cliente.show', [$ordemservico->id, $veiculo->id])}}" class="btn btn-warning">Ver</a>
-                            <a href="{{route('ordemservicos.servicos.available', $ordemservico->id)}}" class="btn btn-primary">Serviços</a>
+                            <a href="{{route('ordemservicos.servicos', $ordemservico->id)}}" class="btn btn-primary">Serviços</a>
+                            @if( !isset($ordemservico->dataencerrada) )
+                                <a href="{{route('ordemservicos.veiculo.executar', $ordemservico->id)}}" class="btn btn-primary">Executar</a>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
