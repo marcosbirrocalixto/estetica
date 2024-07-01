@@ -181,7 +181,7 @@ class ServicosOrdemServicoController extends Controller
         if (!$ordemservico || !$servico)
             return redirect()
                     ->back()
-                    ->with('info', 'Não existe o Perfil ou a Permissão!');
+                    ->with('info', 'Não existe o Ordem serviço ou Serviço!');
 
         $ordemservico->servicos()->detach($servico);
 

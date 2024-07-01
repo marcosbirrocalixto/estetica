@@ -51,9 +51,7 @@
                             <a href="{{route('veiculos.cliente.edit', [$ordemservico->id, $veiculo->id])}}" class="btn btn-info">Edit</a>
                             <a href="{{route('veiculos.cliente.show', [$ordemservico->id, $veiculo->id])}}" class="btn btn-warning">Ver</a>
                             <a href="{{route('ordemservicos.servicos', $ordemservico->id)}}" class="btn btn-primary">Serviços</a>
-                            @if( !isset($ordemservico->dataencerrada) )
-                                <a href="{{route('ordemservicos.veiculo.executar', $ordemservico->id)}}" class="btn btn-primary">Executar</a>
-                            @endif
+                            <a href="{{route('ordemservicos.veiculo.executar', $ordemservico->id)}}" class="btn btn-primary">Executar</a>
                         </td>
                     </tr>
                     @endforeach

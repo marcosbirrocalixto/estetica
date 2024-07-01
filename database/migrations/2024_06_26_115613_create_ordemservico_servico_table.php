@@ -17,8 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('ordemservico_id');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('funcionario_id')->nullable();
-            $table->time('tempoPrevisto')->nullable();
-            $table->time('tempoRealizado')->nullable();
+            $table->string('tempoPrevisto')->nullable();
+            $table->string('tempoRealizado')->nullable();
             $table->double('valorCobrado', 10, 2)->nullable();
 
             $table->foreign('servico_id')

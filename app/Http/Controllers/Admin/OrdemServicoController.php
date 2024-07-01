@@ -205,8 +205,7 @@ class OrdemServicoController extends Controller
         ->Join('servicos', 'servicos.id', '=', 'ordemservico_servico.servico_id')
         ->Join('ordemservicos', 'ordemservicos.id', '=', 'ordemservico_servico.ordemservico_id')
         ->Join('funcionarios', 'funcionarios.id', '=', 'ordemservico_servico.funcionario_id')
-        //->join('funcionarios', 'funcionarios.id', '=', 'ordemservico_servico.funcionario_id')
-        ->select('servicos.id as servicoId', 'servicos.name as nomeservico', 'servicos.description as descriptionServico', 'servicos.price', 'servicos.tempoPrevisto', 'ordemservicos.id as idOrdemServico', 'ordemservicos.veiculo_id as idVeiculo', 'ordemservicos.cliente_id as idCliente', 'funcionarios.id as idfuncionario', 'funcionarios.name as nomefuncionario')
+        ->select('servicos.id as servicoId', 'servicos.name as nomeservico', 'servicos.description as descriptionServico', 'servicos.price', 'ordemservico_servico.tempoRealizado', 'ordemservicos.kmentrega', 'servicos.tempoPrevisto', 'ordemservicos.id as idOrdemServico', 'ordemservicos.veiculo_id as idVeiculo', 'ordemservicos.cliente_id as idCliente', 'ordemservicos.observacao', 'funcionarios.id as idfuncionario', 'funcionarios.name as nomefuncionario')
         ->where('ordemservico_servico.ordemservico_id', '=', "$idOrdemServico")
         ->get();
         //dd($servicos);
@@ -232,6 +231,8 @@ class OrdemServicoController extends Controller
 
     public function gravarOrdemServico(Request $request, $idOrdemServico)
     {
+        $user = auth()->user();
+
         $ordemservico = $this->repository
         ->where('id', $idOrdemServico)
         ->first();
@@ -248,6 +249,36 @@ class OrdemServicoController extends Controller
         $ordem = $this->repository->where('id', $idOrdemServico)->update($data);
         //$id = $ordem->id;
         //dd($ordem);
+
+        $servicos = $this->servicoordemservico->where('ordemservico_id', $idOrdemServico)->get();
+        //dd($servicos);
+        $count = count($servicos);
+
+        //dd($request->all());
+
+        //dd($count);
+        //if ($request->funcionarios[0] == null) {
+        //    $i = 1;
+        //} else {
+        //    $i = 0;
+        //}
+        $i = 1;
+        if ($count > 0) {
+        foreach ($servicos as $servico) {
+            //$funcionario = $request->funcionarios[$i];
+            $tempoPrevisto = $request->tempoPrevisto[$i];
+            $tempoRealizado = $request->tempoRealizado[$i];
+            $valorCobrado = $request->valorCobrado[$i];
+            $ordem = $this->servicoordemservico->where('id', $servico->id)->first();
+            DB::table('ordemservico_servico')
+            //->where('ordemservico_id', $data->ordemservico_id)
+            ->where('id', $servico->id)
+            ->update(
+                ['tempoPrevisto' => $tempoPrevisto, 'tempoRealizado' => $tempoRealizado, 'valorCobrado' => $valorCobrado],
+            );
+            $i = $i + 1;
+        }
+        }
 
         return redirect()->route('ordemservicos.veiculo.index', $ordemservico->veiculo_id);
     }

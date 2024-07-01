@@ -9,7 +9,7 @@ class Servico extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'price', 'tempoPrevisto'];
+    protected $fillable = ['name', 'description', 'price', 'tempoPrevisto', 'tempoRealizado', 'valorCobrado'];
 
     public function acompanhamentos()
     {

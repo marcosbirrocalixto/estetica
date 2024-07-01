@@ -38,7 +38,9 @@
         </div>
         <div class="form-group col-3">
             <label>Encerramento:</label>
-            <input type="datetime-local" name="dataencerrada" id="dataencerrada" class="form-control">
+            <input type="hidden" name="dataencerrada" class="form-control" readonly value="{{ $ordemservico->dataencerrada ?? old('dataencerrada')}} ">
+            <input type="datetime-local" name="dataencerrada" id="dataencerrada" class="form-control" value="{{ date( 'd/m/Y H:i' , strtotime($ordemservico->dataencerrada))}}">
+
         </div>
     </div>
 </div>
@@ -47,7 +49,7 @@
     <div class="row">
         <div class="form-group col-3">
             <label>KM Entrega:</label>
-            <input type="number" name="kmentrega" id="kmentrega" class="form-control">
+            <input type="text" name="kmentrega" id="kmentrega" class="form-control" value="{{ $ordemservico->kmentrega }}">
         </div>
         <div class="form-group col-3">
             <label>Combustível Entrega:</label><br>
@@ -74,6 +76,8 @@
                         <th>Executante</th>
                         <th>Tempo Previsto</th>
                         <th>Tempo Realizado</th>
+                        <th>Valor Cobrado</th>
+                        <th>Como executar</th>
                     </tr>
                  </thead>
                 <tbody>
@@ -92,10 +96,13 @@
                             {{ $servico->nomefuncionario }}
                         </td>
                         <td>
-                            <input type="text" name="tempoPrevisto[<?php echo $i;?>]" class="form-control" placeholder="Tempo Previsto" value="{{ $servico->tempoPrevisto ?? old('tempoPrevisto')}} ">
+                            <input type="text" name="tempoPrevisto[<?php echo $i;?>]" size="2" class="form-control" placeholder="Tempo Previsto" value="{{ $servico->tempoPrevisto ?? old('tempoPrevisto')}} ">
                         </td>
                         <td>
-                            <input type="time" name="temporealizado[<?php echo $i;?>]" class="form-control" placeholder="Tempo Previsto" value="{{ $servico->temporealizado ?? old('temporealizado')}} ">
+                            <input type="text" name="tempoRealizado[<?php echo $i;?>]" size="2" class="form-control" placeholder="Tempo Realizado" value="{{ $servico->tempoRealizado ?? old('tempoRealizado')}} ">
+                        </td>
+                        <td>
+                            <input type="text" name="valorCobrado[<?php echo $i;?>]" size="2" class="form-control" placeholder="Valor Cobrado" value="{{ $servico->valorCobrado ?? old('valorCobrado')}} ">
                         </td>
                         <td style="width: 10px">
                             <a href="{{route('acompanhamentos.servico.index', $servico->servicoId)}}" class="btn btn-primary" target="_blank">Acompanhamento</a>
@@ -114,7 +121,7 @@
 </div>
 
 <label>Observação:</label><p>
-    <textarea id="observacao" name="observacao" rows="4" cols="50">
+    <textarea id="observacao" name="observacao" rows="4" cols="50" value="{{ $ordemservico->observacao ?? old('observacao')}} ">
 
     </textarea>
 </div>
