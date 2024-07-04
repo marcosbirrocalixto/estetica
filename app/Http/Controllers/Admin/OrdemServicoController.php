@@ -9,20 +9,22 @@ use App\Models\ServicoOrdemServico;
 use App\Models\Veiculo;
 use App\Models\Funcionario;
 use App\Models\Servico;
+use App\Models\ChecklistEntrada;
 use App\Http\Requests\StoreUpdateOrdemServicoRequest;
 use Illuminate\Support\Facades\DB;
 
 class OrdemServicoController extends Controller
 {
-    protected $repository, $veiculo, $funcionario, $servicoordemservico;
+    protected $repository, $veiculo, $funcionario, $servicoordemservico, $checklistEntrada;
 
-    public function  __construct(Ordemservico $ordemservico, Veiculo $veiculo, Funcionario $funcionario, Servico $servico, ServicoOrdemServico $servicoordemservico)
+    public function  __construct(Ordemservico $ordemservico, Veiculo $veiculo, Funcionario $funcionario, Servico $servico, ServicoOrdemServico $servicoordemservico, ChecklistEntrada $checklistEntrada)
     {
         $this->repository = $ordemservico;
         $this->veiculo = $veiculo;
         $this->funcionario = $funcionario;
         $this->servico = $servico;
         $this->servicoordemservico = $servicoordemservico;
+        $this->checklistEntrada = $checklistEntrada;
     }
 
     public function index($idVeiculo)
@@ -196,6 +198,8 @@ class OrdemServicoController extends Controller
 
         $i = 1;
 
+        $checklistEntradas = $this->checklistEntrada->get();
+
         $ordemservico = $this->repository
             ->where('id', $idOrdemServico)
             ->first();
@@ -221,11 +225,12 @@ class OrdemServicoController extends Controller
         //dd($veiculo);
 
         return view('admin.pages.clientes.veiculos.ordemservicos.executar', [
-            'user'          => $user,
-            'ordemservico'  => $ordemservico,
-            'servicos'      => $servicos,
-            'veiculo'       => $veiculo,
-            'i'             => $i,
+            'user'              => $user,
+            'ordemservico'      => $ordemservico,
+            'servicos'          => $servicos,
+            'veiculo'           => $veiculo,
+            'i'                 => $i,
+            'checklistEntradas' => $checklistEntradas,
         ]);
     }
 

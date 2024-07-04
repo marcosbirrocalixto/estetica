@@ -3,13 +3,25 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\{
-    ProfileController, PermissionController, PermissionProfileController, UserController, TipoServicoController, GrupoController, SubgrupoController, UnidadeController, SubgrupoGrupoController, FuncionarioController, ServicoController, AcompanhamentoServicoController, TipoUsuarioController, DetalheAcompanhamentoController, UfController, ClienteController, TipoPessoaController, TipoLogradouroController, ClienteUserController, VeiculoClienteController, OrdemServicoController, ServicosOrdemServicoController
+    ProfileController, PermissionController, PermissionProfileController, UserController, TipoServicoController, GrupoController, SubgrupoController, UnidadeController, SubgrupoGrupoController, FuncionarioController, ServicoController, AcompanhamentoServicoController, TipoUsuarioController, DetalheAcompanhamentoController, UfController, ClienteController, TipoPessoaController, TipoLogradouroController, ClienteUserController, VeiculoClienteController, OrdemServicoController, ServicosOrdemServicoController, ChecklistEntradaController,
+    ChecklistSaidaController
 };
 
-/*
-    Routes Permission x Servico
-*/
+/**
+ * Router Checklist Saida
+ */
+Route::any('admin/checklistSaidas/search', [ChecklistSaidaController::class, 'search'])->name('checklistSaidas.search')->middleware('auth');
+Route::resource('admin/checklistSaidas', ChecklistSaidaController::class)->middleware('auth');
 
+/**
+ * Router Checklist Entrada
+ */
+Route::any('admin/checklistEntradas/search', [ChecklistEntradaController::class, 'search'])->name('checklistEntradas.search')->middleware('auth');
+Route::resource('admin/checklistEntradas', ChecklistEntradaController::class)->middleware('auth');
+
+/*
+    Routes Ordem serviço x Acompanhamentos
+*/
 Route::get('ordemservicos/{id}/servicos', [ServicosOrdemServicoController::class, 'servicos'])->name('ordemservicos.servicos')->middleware('auth');
 
 /**

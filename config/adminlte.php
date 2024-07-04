@@ -364,6 +364,16 @@ return [
                     'url'  => 'admin/funcionarios',
                     'icon' => 'fa fa-user-circle',
                 ],
+                [
+                    'text' => 'Checklist Entrada',
+                    'url'  => 'admin/checklistEntradas',
+                    'icon' => 'fa fa-user-circle',
+                ],
+                [
+                    'text' => 'Checklist Saída',
+                    'url'  => 'admin/checklistSaidas',
+                    'icon' => 'fa fa-user-circle',
+                ],
             ],
         ],
         [
