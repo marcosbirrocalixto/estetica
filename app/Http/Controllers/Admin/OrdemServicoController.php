@@ -209,7 +209,7 @@ class OrdemServicoController extends Controller
         ->Join('servicos', 'servicos.id', '=', 'ordemservico_servico.servico_id')
         ->Join('ordemservicos', 'ordemservicos.id', '=', 'ordemservico_servico.ordemservico_id')
         ->Join('funcionarios', 'funcionarios.id', '=', 'ordemservico_servico.funcionario_id')
-        ->select('servicos.id as servicoId', 'servicos.name as nomeservico', 'servicos.description as descriptionServico', 'servicos.price', 'ordemservico_servico.tempoRealizado', 'ordemservicos.kmentrega', 'servicos.tempoPrevisto', 'ordemservicos.id as idOrdemServico', 'ordemservicos.veiculo_id as idVeiculo', 'ordemservicos.cliente_id as idCliente', 'ordemservicos.observacao', 'funcionarios.id as idfuncionario', 'funcionarios.name as nomefuncionario')
+        ->select('servicos.id as servicoId', 'servicos.name as nomeservico', 'servicos.description as descriptionServico', 'servicos.price', 'ordemservico_servico.tempoRealizado', 'ordemservico_servico.valorCobrado', 'ordemservicos.kmentrega', 'servicos.tempoPrevisto', 'ordemservicos.id as idOrdemServico', 'ordemservicos.veiculo_id as idVeiculo', 'ordemservicos.cliente_id as idCliente', 'ordemservicos.observacao', 'funcionarios.id as idfuncionario', 'funcionarios.name as nomefuncionario')
         ->where('ordemservico_servico.ordemservico_id', '=', "$idOrdemServico")
         ->get();
         //dd($servicos);

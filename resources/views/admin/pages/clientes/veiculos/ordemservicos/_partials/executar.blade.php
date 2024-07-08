@@ -29,19 +29,25 @@
         <div class="form-group">
         <label>Data Entrada:</label>
                 <input type="hidden" name="dataentrada" class="form-control" readonly value="{{ $ordemservico->dataentrada ?? old('dataentrada')}} ">
-                <input type="text" name="dataentrada" class="form-control" placeholder="Data Entrada" readonly value="{{ $ordemservico->dataentrada ?? old('dataentrada')}} ">
+                <input type="text" name="dataentrada" class="form-control" placeholder="Data Entrada" readonly value="{{ date( 'd/m/Y H:i' , strtotime($ordemservico->dataentrada)) ?? old('dataentrada')}} ">
         </div>
         <div class="form-group">
             <label>Data programada:</label>
                 <input type="hidden" name="dataprogramada" class="form-control" readonly value="{{ $ordemservico->dataprogramada ?? old('dataprogramada')}} ">
-                <input type="text" name="dataprogramada" class="form-control" placeholder="Data programada" readonly value="{{ $ordemservico->dataprogramada ?? old('dataprogramada')}} ">
+                <input type="text" name="dataprogramada" class="form-control" placeholder="Data programada" readonly value="{{ date('d/m/Y H:i' , strtotime($ordemservico->dataprogramada)) ?? old('dataprogramada')}} ">
         </div>
+        @if ($ordemservico->dataencerrada ?? '')
         <div class="form-group">
             <label>Encerramento:</label>
-            <input type="hidden" name="dataencerrada" class="form-control" readonly value="{{ $ordemservico->dataencerrada ?? old('dataencerrada')}} ">
-            <input type="datetime-local" name="dataencerrada" id="dataencerrada" class="form-control" value="{{ date( 'd/m/Y H:i' , strtotime($ordemservico->dataencerrada))}}">
-
+            <input type="hidden" name="dataencerrada" class="form-control" readonly value="{{ date( 'd/m/Y H:i' , strtotime($ordemservico->dataencerrada))}} ?? old('dataencerrada')}} ">
+            <input type="text" name="dataencerrada" class="form-control" placeholder="Data Encerrada" readonly value="{{ date( 'd/m/Y H:i' , strtotime($ordemservico->dataencerrada))}} ">
         </div>
+        @else
+        <div class="form-group">
+            <label>Encerramento:</label>
+            <input type="datetime-local" name="dataencerrada" id="dataencerrada" class="form-control" value="{{ date( 'd/m/Y H:i' , strtotime($ordemservico->dataencerrada))}}">
+        </div>
+        @endif
     </div>
 </div>
 
@@ -62,6 +68,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="container">
     <div class="row">
@@ -102,7 +109,7 @@
                             <input type="text" name="tempoRealizado[<?php echo $i;?>]" size="2" class="form-control" placeholder="Tempo Realizado" value="{{ $servico->tempoRealizado ?? old('tempoRealizado')}} ">
                         </td>
                         <td>
-                            <input type="text" name="valorCobrado[<?php echo $i;?>]" size="2" class="form-control" placeholder="Valor Cobrado" value="{{ $servico->valorCobrado ?? old('valorCobrado')}} ">
+                            <input type="text" name="valorCobrado[<?php echo $i;?>]" size="2" class="form-control" placeholder="Valor Cobrado" value="{{$servico->valorCobrado ?? old('valorCobrado')}} ">
                         </td>
                         <td style="width: 10px">
                             <a href="{{route('acompanhamentos.servico.index', $servico->servicoId)}}" class="btn btn-primary" target="_blank">Acompanhamento</a>
