@@ -151,4 +151,17 @@ class VeiculoClienteController extends Controller
             'veiculos'   => $veiculos,
         ]);
     }
+
+    public function pesquisaPlaca(Request $request)
+    {
+        $filters = $request->except('_token');
+        //dd($filters);
+        $veiculos = $this->repository->search($request->filter);
+
+        //dd($veiculos);
+
+        return view('admin.pages.clientes.veiculos.indexVeiculos', [
+            'veiculos'   => $veiculos,
+        ]);
+    }
 }

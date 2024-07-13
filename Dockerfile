@@ -1,7 +1,7 @@
 FROM php:8.1-fpm
 
 # set your user name, ex: user=carlos
-ARG user=yourusername
+ARG user=marcosbirro
 ARG uid=1000
 
 # Install system dependencies
@@ -19,6 +19,13 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd sockets
+RUN docker-php-ext-install php_zip
+RUN docker-php-ext-install php_xml
+RUN docker-php-ext-install php_gd2
+RUN docker-php-ext-install php_iconv
+RUN docker-php-ext-install php_simplexml
+RUN docker-php-ext-install php_xmlreader
+RUN docker-php-ext-install php_zlib
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
